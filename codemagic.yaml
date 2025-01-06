@@ -1,18 +1,12 @@
 workflows:
   default-workflow:
     name: Docker Workflow
+    docker:
+      image: "alexrodri7/codemagic-local:latest"  # Imagen personalizada en Docker Hub
     scripts:
-      - name: Pull Docker Image
-        script: |
-          docker pull alexrodri7/codemagic-local:latest  # Descargar la imagen desde Docker Hub
-
       - name: Build Project
-        script: |
-          docker run --rm alexrodri7/codemagic-local:latest mvn clean package  # Construir el proyecto
-
+        script: mvn clean package
       - name: Run Tests
-        script: |
-          docker run --rm alexrodri7/codemagic-local:latest mvn test  # Ejecutar pruebas
-
+        script: mvn test
     artifacts:
-      - target/*.jar  # Guardar los artefactos generados
+      - target/*.jar  # Artefactos generados
