@@ -1,17 +1,27 @@
 workflows:
-  default-workflow:
-    name: Build and Test Workflow
+  android_build:
+    name: "Generar APK Android"
+    max_build_duration: 60
+    environment:
+      vars:
+        VERSION_CODE: 101
+        BUILD_ID: 12345
     scripts:
-      - name: Set up Environment
+      - name: "Preparar Entorno"
         script: |
-          apt-get update
-          apt-get install -y openjdk-17-jdk maven
+          apt-get update && apt-get install -y openjdk-8-jdk android-sdk
+          export ANDROID_HOME=$HOME/Android/Sdk
+          export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+          yes | sdkmanager --licenses
+          sdkmanager "build-tools;31.0.0" "platforms;android-31"
 
-      - name: Build Project
-        script: mvn clean package
+      - name: "Compilar APK"
+        script: |
+          buildozer -v android debug
 
-      - name: Run Tests
-        script: mvn test
+      - name: "Ejecutar Tests"
+        script: |
+          echo "No se han definido pruebas automáticas"
 
     artifacts:
-      - target/*.jar  # Guardar los artefactos generados
+      - build/**/*.apk
