@@ -1,13 +1,14 @@
-workflows: 
+workflows:
   default-workflow:
     name: Docker Workflow
-    environment:
-      docker_image: "alexrodri7/codemagic-local:latest"  # Imagen Docker de Docker Hub
+    docker:  # Define la imagen Docker aquí
+      image: "alexrodri7/codemagic-local:latest"  # Imagen Docker de Docker Hub
     scripts:
       # Paso 1: Ejecutar el contenedor Docker y compilar el proyecto
       - name: Build
         script: |
           docker run --rm alexrodri7/codemagic-local:latest mvn -B -DskipTests clean package
+      
       # Paso 2: Ejecutar las pruebas en el contenedor Docker
       - name: Test
         script: |
