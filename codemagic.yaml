@@ -1,0 +1,12 @@
+workflows:
+  default-workflow:
+    name: Build and Test Workflow
+    environment:
+      docker_image: "alexrodri7/codemagic-local:latest"  # Tu imagen personalizada en Docker Hub
+    scripts:
+      - name: Build
+        script: mvn -B -DskipTests clean package
+      - name: Test
+        script: mvn test
+    artifacts:
+      - build/libs/**  # Artefactos generados
