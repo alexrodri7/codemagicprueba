@@ -1,8 +1,0 @@
-name: placeholder_project
-description: A placeholder project for Codemagic validation
-version: 1.0.0+1
-environment:
-  sdk: ">=2.19.0 <4.0.0"
-dependencies:
-  flutter:
-    sdk: flutter
