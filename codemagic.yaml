@@ -1,12 +1,17 @@
 workflows:
   default-workflow:
-    name: Docker Workflow
-    docker:
-      image: "alexrodri7/codemagic-local:latest"  # Imagen personalizada en Docker Hub
+    name: Build and Test Workflow
     scripts:
+      - name: Set up Environment
+        script: |
+          apt-get update
+          apt-get install -y openjdk-17-jdk maven
+
       - name: Build Project
         script: mvn clean package
+
       - name: Run Tests
         script: mvn test
+
     artifacts:
-      - target/*.jar  # Artefactos generados
+      - target/*.jar  # Guardar los artefactos generados
