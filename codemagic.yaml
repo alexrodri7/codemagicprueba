@@ -1,25 +1,18 @@
 workflows:
   default-workflow:
     name: Docker Workflow
-    environment:
-      image: "ubuntu:20.04"  # Entorno Linux compatible con Docker
-
     scripts:
-      - name: Install Docker
-        script: |
-          apt-get update && apt-get install -y docker.io
-
       - name: Pull Docker Image
         script: |
-          docker pull alexrodri7/codemagic-local:latest
+          docker pull alexrodri7/codemagic-local:latest  # Descargar la imagen desde Docker Hub
 
       - name: Build Project
         script: |
-          docker run --rm alexrodri7/codemagic-local:latest mvn clean package
+          docker run --rm alexrodri7/codemagic-local:latest mvn clean package  # Construir el proyecto
 
       - name: Run Tests
         script: |
-          docker run --rm alexrodri7/codemagic-local:latest mvn test
+          docker run --rm alexrodri7/codemagic-local:latest mvn test  # Ejecutar pruebas
 
     artifacts:
-      - target/*.jar
+      - target/*.jar  # Guardar los artefactos generados
