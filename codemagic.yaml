@@ -1,8 +1,8 @@
 workflows:
   default-workflow:
     name: Docker Workflow
-    environment:
-      docker_image: "alexrodri7/codemagic-local:latest"  # Imagen Docker que subiste 
+    docker:
+      image: "alexrodri7/codemagic-local:latest"  # Imagen Docker personalizada
     scripts:
       - name: Build Project
         script: mvn clean package
