@@ -2,6 +2,9 @@ workflows:
   default-workflow:
     name: Docker Workflow
     scripts:
+      - name: Install Docker
+        script: |
+          apt-get update && apt-get install -y docker.io
       - name: Pull Docker Image
         script: |
           docker pull alexrodri7/codemagic-local:latest
